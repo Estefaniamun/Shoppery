@@ -13,14 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('productos', function (Blueprint $table) {
+        Schema::create('compras', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre');
-            $table->string('descripcion');
-            $table->string('foto');
-            $table->string('categoria');
-            $table->float('precio');
-            $table->set('talla', ['XS', 'S', 'M', 'L', 'XL', 'XXL']);
+            $table->string('metodo_pago');
+            $table->date('fecha');
+            $table->unsignedBigInteger('usuario');
+            $table->foreign('usuario')->references('id')->on('users');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -33,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('productos');
+        Schema::dropIfExists('compras');
     }
 };

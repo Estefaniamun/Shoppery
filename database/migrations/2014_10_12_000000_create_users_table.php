@@ -18,15 +18,16 @@ return new class extends Migration
             $table->string('nombre');
             $table->string('apellidos');
             $table->string('dni');
-            $table->string('email')->unique();
+            $table->string('email', 20)->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+            $table->string('password', 6);
             $table->string('direccion');
             $table->string('rol');
             $table->rememberToken();
             $table->softDeletes();
             $table->timestamps();
         });
+
     }
 
     /**

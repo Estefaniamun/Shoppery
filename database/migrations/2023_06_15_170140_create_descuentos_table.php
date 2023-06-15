@@ -13,14 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('valoraciones', function (Blueprint $table) {
+        Schema::create('descuentos', function (Blueprint $table) {
             $table->id();
-            $table->integer('usuariovalorador');
-            $table->integer('productovalorado');
-            $table->integer('n_estrellas');
-            $table->string('contenido');
+            $table->float('porcentaje');
+            $table->string('descripcion');
+            $table->unsignedBigInteger('categoria');
+            $table->foreign('categoria')->references('id')->on('categorias');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -31,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('valoraciones');
+        Schema::dropIfExists('descuentos');
     }
 };
