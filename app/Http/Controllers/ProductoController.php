@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Categoria;
 use App\Models\Producto;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
@@ -10,12 +11,14 @@ use Illuminate\Http\Request;
 class ProductoController extends Controller
 {
     public function index(){
-        $productos = Producto::paginate(2);
-        return view('productos.index')->with('productos', $productos);
+        $productos = Producto::all();
+        $user = Auth()->user();
+        return view('productos.index')->with('productos', $productos)->with('user', $user);
     }
 
     public function create(){
-        return view('productos.create');
+        $categorias = Categoria::all();
+        return view('productos.create')->with('categorias', $categorias);
     }
 
     public function store(Request $request)
@@ -46,11 +49,7 @@ class ProductoController extends Controller
 
         
     }
-    public function show($id){
-        $producto = Producto::find($id);
-        $productos = Producto::all();
-         return view('productos.show')->with('producto', $producto)->with('productos', $productos);
-    }
+   
     public function edit($id){
         $producto = Producto::find($id);
         return view('productos.edit')->with('producto', $producto);

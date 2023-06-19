@@ -23,7 +23,7 @@ class CompraController extends Controller
 
     public function store(Request $request)
     {
-        $usuarioLogueado = Auth::user()->email;
+        $usuarioLogueado = Auth::user();
         $request->validate([
             'metodo_pago' => 'required',
             'fecha' => 'required',

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\ProfileController;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoriaController;
@@ -32,7 +33,8 @@ Route::delete('/user/delete/{user}', [UserController::class, 'destroy'])->middle
 
 //Rutas productos
 Route::get('/producto', [ProductoController::class, 'index'])->name('producto.index');
-Route::get('/producto/show/{id}', [ProductoController::class, 'show'])->middleware('auth', 'verified')->name('producto.show');
+Route::get('/producto/create', [ProductoController::class, 'create'])->name('producto.create');
+Route::post('/producto/create', [ProductoController::class, 'store'])->name('producto.store');
 Route::get('/producto/edit/{id}', [ProductoController::class, 'edit'])->middleware('auth', 'verified')->middleware('admin')->name('producto.edit');
 Route::put('/producto/edit/{id}',[ ProductoController::class, 'update'])->middleware('auth', 'verified')->middleware('admin')->name('producto.update');
 Route::delete('/producto/delete/{producto}', [ProductoController::class, 'destroy'])->middleware('auth', 'verified')->middleware('admin')->name('producto.destroy');
@@ -55,5 +57,13 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-
+//Ruta verificacion email
+Route::get('/email/verify', function () {
+    return view('auth.verify-email');
+})->middleware('auth')->name('verification.notice');
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+ 
+    return redirect('/home');
+})->middleware(['auth', 'signed'])->name('verification.verify');
 require __DIR__.'/auth.php';
