@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Compra extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'metodo_pago',
+        'fecha',
+        'usuario',
+    ];
 }

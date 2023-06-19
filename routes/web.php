@@ -1,8 +1,11 @@
 <?php
 
+use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CategoriaController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,9 +17,7 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+Route::get('/', [CategoriaController::class, 'index'])->name('home');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -25,9 +26,28 @@ Route::get('/dashboard', function () {
 //Rutas user
 Route::get('/user', [UserController::class, 'index'])->name('user.index');
 Route::get('/user/show/{id}', [userController::class, 'show'])->middleware('auth', 'verified')->middleware('admin')->name('user.show');
-Route::get('/user/edit/{id}', 'userController@edit')->middleware('auth', 'verified')->middleware('admin')->name('user.edit');
-Route::put('/user/edit/{id}', 'userController@update')->middleware('auth', 'verified')->middleware('admin')->name('user.update');
-Route::delete('/user/delete/{user}', 'userController@destroy')->middleware('auth', 'verified')->middleware('admin')->name('user.destroy');
+Route::get('/user/edit/{id}', [UserController::class, 'edit'])->middleware('auth', 'verified')->middleware('admin')->name('user.edit');
+Route::put('/user/edit/{id}', [UserController::class, 'update'])->middleware('auth', 'verified')->middleware('admin')->name('user.update');
+Route::delete('/user/delete/{user}', [UserController::class, 'destroy'])->middleware('auth', 'verified')->middleware('admin')->name('user.destroy');
+
+//Rutas productos
+Route::get('/producto', [ProductoController::class, 'index'])->name('producto.index');
+Route::get('/producto/show/{id}', [ProductoController::class, 'show'])->middleware('auth', 'verified')->name('producto.show');
+Route::get('/producto/edit/{id}', [ProductoController::class, 'edit'])->middleware('auth', 'verified')->middleware('admin')->name('producto.edit');
+Route::put('/producto/edit/{id}',[ ProductoController::class, 'update'])->middleware('auth', 'verified')->middleware('admin')->name('producto.update');
+Route::delete('/producto/delete/{producto}', [ProductoController::class, 'destroy'])->middleware('auth', 'verified')->middleware('admin')->name('producto.destroy');
+
+//Rutas descuentos
+
+
+
+//Rutas compras
+
+
+//Rutas detalles
+
+
+//Rutas categorias
 
 
 Route::middleware('auth')->group(function () {
