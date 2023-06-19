@@ -36,7 +36,9 @@
                 @endif
                 @endauth
 
-                @if(session('status'))
+               @guest
+                   
+               
                 <x-nav-link :href="route('login')" :active="request()->routeIs('login')">
                     <button type="button"
                         class="text-white bg-complement  hover:bg-complement_2 focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 font-medium rounded-lg text-md px-5 py-2.5 text-center mr-2 mb-2">Login</button>
@@ -45,7 +47,7 @@
                     <button type="button"
                         class="text-white bg-complement   hover:bg-complement_2 focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 font-medium rounded-lg text-md px-5 py-2.5 text-center mr-2 mb-2">Registrar</button>
                 </x-nav-link>
-               @endif
+                @endguest
 
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ml-6">
@@ -53,13 +55,12 @@
                     <x-dropdown align="right" width="48">
                         <x-slot name="trigger">
                             <button
-                                class="inline-flex items-center px-2 py-2 border border-transparent text-md leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
+                                class="inline-flex items-center px-2 py-2  border-transparent text-md leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-secondary dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
                                
                                 <div class="flex items-center space-x-3">
                                     <div class="text-sm text-white">
-                                        <div>{{ Auth::user()->nombre . Auth::user()->apellidos }}</div>
-                                        <div class="text-sm text-gray-500 dark:text-gray-400">Joined in
-                                            {{ fake()->date('d-m-Y') }}</div>
+                                       
+                                        <div> <i class="gg-profile"></i>{{ Auth::user()->nombre }}</div>
                                     </div>
                                 </div>
                                 </button>
