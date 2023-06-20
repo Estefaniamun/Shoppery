@@ -19,8 +19,8 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
 
         DB::table('users')->insert([
-            ['id' => 1, 'nombre' => 'Estefania', 'apellidos' => 'Muñoz Calzado', 'dni' => '12345678L', 'email'=> 'estefania@gmail.com', 'password' => '123456', 'direccion' => 'C/Ancha Nº 12', 'rol' => 'admin'],
-            ['id' => 2, 'nombre' => 'Jesús', 'apellidos' => 'Morales Cañete', 'dni' => '12378934A', 'email'=> 'jesus@gmail.com', 'password' => '123456', 'direccion' => 'C/Ancha Nº 22', 'rol' => 'user'],
+            ['id' => 1, 'nombre' => 'Estefania', 'apellidos' => 'Muñoz Calzado', 'dni' => '12345678L', 'email'=> 'estefania@gmail.com', 'password' => Hash::make('12345678'), 'direccion' => 'C/Ancha Nº 12', 'rol' => 'admin'],
+            ['id' => 2, 'nombre' => 'Jesús', 'apellidos' => 'Morales Cañete', 'dni' => '12378934A', 'email'=> 'jesus@gmail.com', 'password' => Hash::make('12345678'), 'direccion' => 'C/Ancha Nº 22', 'rol' => 'user'],
 
         ]);
 

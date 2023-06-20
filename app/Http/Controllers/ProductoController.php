@@ -52,7 +52,8 @@ class ProductoController extends Controller
    
     public function edit($id){
         $producto = Producto::find($id);
-        return view('productos.edit')->with('producto', $producto);
+        $categorias = Categoria::all();
+        return view('productos.edit')->with('producto', $producto)->with('categorias', $categorias);
     }
 
     public function update(Request $request, $id){

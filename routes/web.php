@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CompraController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
@@ -25,26 +26,25 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 //Rutas user
-Route::get('/user', [UserController::class, 'index'])->name('user.index');
-Route::get('/user/show/{id}', [userController::class, 'show'])->middleware('auth', 'verified')->middleware('admin')->name('user.show');
-Route::get('/user/edit/{id}', [UserController::class, 'edit'])->middleware('auth', 'verified')->middleware('admin')->name('user.edit');
-Route::put('/user/edit/{id}', [UserController::class, 'update'])->middleware('auth', 'verified')->middleware('admin')->name('user.update');
-Route::delete('/user/delete/{user}', [UserController::class, 'destroy'])->middleware('auth', 'verified')->middleware('admin')->name('user.destroy');
+Route::get('/user', [UserController::class, 'index'])->middleware('auth', 'verified')->name('user.index');
+Route::get('/user/edit/{id}', [UserController::class, 'edit'])->middleware('auth', 'verified')->name('user.edit');
+Route::put('/user/edit/{id}', [UserController::class, 'update'])->middleware('auth', 'verified')->name('user.update');
+Route::delete('/user/delete/{user}', [UserController::class, 'destroy'])->middleware('auth', 'verified')->name('user.destroy');
 
 //Rutas productos
 Route::get('/producto', [ProductoController::class, 'index'])->name('producto.index');
 Route::get('/producto/create', [ProductoController::class, 'create'])->name('producto.create');
 Route::post('/producto/create', [ProductoController::class, 'store'])->name('producto.store');
-Route::get('/producto/edit/{id}', [ProductoController::class, 'edit'])->middleware('auth', 'verified')->middleware('admin')->name('producto.edit');
-Route::put('/producto/edit/{id}',[ ProductoController::class, 'update'])->middleware('auth', 'verified')->middleware('admin')->name('producto.update');
-Route::delete('/producto/delete/{producto}', [ProductoController::class, 'destroy'])->middleware('auth', 'verified')->middleware('admin')->name('producto.destroy');
+Route::get('/producto/edit/{id}', [ProductoController::class, 'edit'])->middleware('auth', 'verified')->name('producto.edit');
+Route::put('/producto/edit/{id}',[ ProductoController::class, 'update'])->middleware('auth', 'verified')->name('producto.update');
+Route::delete('/producto/delete/{producto}', 'ProductoController@destroy' )->middleware('auth', 'verified')->name('producto.destroy');
 
 //Rutas descuentos
 
 
 
 //Rutas compras
-
+Route::get('/compra', [CompraController::class, 'index'])->middleware('auth')->name('compras.index');
 
 //Rutas detalles
 

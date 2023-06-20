@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
     public function index(){
-        $users = User::paginate(2);
+        $users = User::all();
         return view('users.index')->with('users', $users);
     }
 
@@ -35,18 +35,14 @@ class UserController extends Controller
             $usuario->email = $request->email;
             $usuario->password = $request->password;
             $usuario->direccion = $request->direccion;
+            $usuario->rol = $request->rol;
             $usuario->save();
-            return redirect()->route('users.index')->with('status', "Usuario creado correctamente");
+            return redirect()->route('user.index')->with('status', "Usuario creado correctamente");
         } catch (QueryException $e) {
-            return redirect()->route('users.index')->with('status', "No se ha podido crear el usuario");
+            return redirect()->route('user.index')->with('status', "No se ha podido crear el usuario");
         }
     }
 
-    public function show($id){
-        $user = User::find($id);
-        $users = User::all();
-         return view('users.show')->with('user', $user)->with('users', $users);
-    }
     public function edit($id){
         $user = User::find($id);
         return view('users.edit')->with('user', $user);
@@ -65,23 +61,24 @@ class UserController extends Controller
             $user = User::find($id);
             $user->nombre = $request->nombre;
             $user->apellidos = $request->apellidos;
+            $user->direccion = $request->direccion;
             $user->email = $request->email;
             if ($request->password) {
                 $user->password = Hash::make($request->password);
             }
             $user->save();
-            return redirect()->route('users.index')->with('status', "Usuario modificado correctamente");
+            return redirect()->route('user.index')->with('status', "Usuario modificado correctamente");
         } catch (QueryException $e) {
-            return redirect()->route('users.index')->with('status', "No se ha podido modificar el usuario");
+            return redirect()->route('user.index')->with('status', "No se ha podido modificar el usuario");
         }        
     }
     public function destroy($id){
         try{
             $user = User::find($id);
             $user->delete();
-            return redirect()->route('users.index')->with('status', "Usuario eliminado correctamente");
+            return redirect()->route('user.index')->with('status', "Usuario eliminado correctamente");
         } catch (QueryException $e) {
-            return redirect()->route('users.index')->with('status', "No se ha podido eliminado el usuario");
+            return redirect()->route('user.index')->with('status', "No se ha podido eliminado el usuario");
         }
     }
 
