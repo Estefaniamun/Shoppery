@@ -19,7 +19,7 @@
         <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100 dark:bg-gray-900">
             <div>
                 <a href="/">
-                    <x-application-logo class="w-40 h-40 fill-current"></x-application-logo>
+                   <img src="storage/logo.png" width="80px" height="80px" alt="logo">
                 </a>
             </div>
 

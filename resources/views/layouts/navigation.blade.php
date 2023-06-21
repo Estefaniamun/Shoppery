@@ -5,7 +5,7 @@
             <!-- Logo -->
             <div class="shrink-0 flex items-center">
                 <a href="{{ route('home') }}">
-                    <x-application-logo class="block h-9 w-auto fill-current text-gray-800"></x-application-logo>
+                    <img src="storage/logo.png" width="60px" height="60px" alt="foto">
                 </a>
             </div>
 
@@ -35,6 +35,25 @@
                         </x-nav-link>
                     </div>
                 @endif
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('profile.edit')">
+                        <span>{{ Auth::user()->email }}</span>
+                    </x-nav-link>
+                </div>
+
+
+                <!-- Authentication -->
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex mt-5">
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+
+                        <x-nav-link :href="route('logout')"
+                            onclick="event.preventDefault();
+                                    this.closest('form').submit();">
+                            {{ __('Cerrar Sesión') }}
+                        </x-nav-link>
+                    </form>
+                </div>
             @endauth
 
             @guest
@@ -47,22 +66,15 @@
                         class="text-white bg-complement   hover:bg-complement_2 focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 font-medium rounded-lg text-md px-5 py-2.5 text-center mr-2 mb-2">Registrar</button>
                 </x-nav-link>
             @endguest
-
             <!-- Settings Dropdown -->
-            <div class="hidden sm:flex sm:items-center sm:ml-6">
+            <div class="sm:flex sm:items-center sm:ml-6">
                 @auth
                     <x-dropdown align="right" width="48">
                         <x-slot name="trigger">
-                            <button
+                            {{-- <button
                                 class="inline-flex items-center px-2 py-2  border-transparent text-md leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-secondary dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
 
-                                <div class="flex items-center space-x-3">
-                                    <div class="text-sm text-white">
-
-                                        <div> <i class="gg-profile"></i>{{ Auth::user()->nombre }}</div>
-                                    </div>
-                                </div>
-                            </button>
+                            </button> --}}
                         </x-slot>
                     @endauth
                     <x-slot name="content">
@@ -107,13 +119,32 @@
                 {{ __('Home') }}
             </x-responsive-nav-link>
         </div>
+        <div class="pt-2 pb-3 space-y-1">
+            <x-responsive-nav-link :href="route('producto.index')" :active="request()->routeIs('producto.index')">
+                {{ __('Productos') }}
+            </x-responsive-nav-link>
+        </div>
+        @auth
+            @if (Auth::user()->rol == 'admin')
+                <div class="pt-2 pb-3 space-y-1">
+                    <x-responsive-nav-link :href="route('producto.create')" :active="request()->routeIs('producto.create')">
+                        {{ __('Crear productos') }}
+                    </x-responsive-nav-link>
+                </div>
+                <div class="pt-2 pb-3 space-y-1">
+                    <x-responsive-nav-link :href="route('user.index')" :active="request()->routeIs('user.index')">
+                        {{ __('Clientes') }}
+                    </x-responsive-nav-link>
+                </div>
+            @endif
+        @endauth
+
 
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
             @auth
                 <div class="px-4">
-                    <div class="font-medium text-base text-gray-800 dark:text-gray-200">{{ Auth::user()->nombre }}</div>
-                    <div class="font-medium text-md text-gray-500">{{ Auth::user()->email }}</div>
+                    <div class="font-medium text-base text-gray-800 dark:text-gray-200">{{ Auth::user()->email }}</div>
                 </div>
 
                 <div class="mt-3 space-y-1">

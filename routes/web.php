@@ -29,22 +29,23 @@ Route::get('/dashboard', function () {
 Route::get('/user', [UserController::class, 'index'])->middleware('auth', 'verified')->name('user.index');
 Route::get('/user/edit/{id}', [UserController::class, 'edit'])->middleware('auth', 'verified')->name('user.edit');
 Route::put('/user/edit/{id}', [UserController::class, 'update'])->middleware('auth', 'verified')->name('user.update');
-Route::delete('/user/delete/{user}', [UserController::class, 'destroy'])->middleware('auth', 'verified')->name('user.destroy');
-
+Route::delete('/user/{id}', [UserController::class, 'destroy'])->name('user.destroy');
 //Rutas productos
 Route::get('/producto', [ProductoController::class, 'index'])->name('producto.index');
-Route::get('/producto/create', [ProductoController::class, 'create'])->name('producto.create');
-Route::post('/producto/create', [ProductoController::class, 'store'])->name('producto.store');
+Route::get('/producto/create', [ProductoController::class, 'create'])->middleware('auth', 'verified')->name('producto.create');
+Route::post('/producto/store', [ProductoController::class, 'store'])->middleware('auth', 'verified')->name('producto.store');
 Route::get('/producto/edit/{id}', [ProductoController::class, 'edit'])->middleware('auth', 'verified')->name('producto.edit');
 Route::put('/producto/edit/{id}',[ ProductoController::class, 'update'])->middleware('auth', 'verified')->name('producto.update');
-Route::delete('/producto/delete/{producto}', 'ProductoController@destroy' )->middleware('auth', 'verified')->name('producto.destroy');
+Route::delete('/producto/{id}', [ProductoController::class, 'destroy'])->name('producto.destroy');
 
+//Route::resource('productos',ProductoController::class);
 //Rutas descuentos
 
 
 
 //Rutas compras
-Route::get('/compra', [CompraController::class, 'index'])->middleware('auth')->name('compras.index');
+Route::get('/compra/{id}', [CompraController::class, 'index'])->middleware('auth')->name('compras.index');
+Route::post('/compra/store/{id}', [ProductoController::class, 'store'])->middleware('auth')->name('compra.store');
 
 //Rutas detalles
 

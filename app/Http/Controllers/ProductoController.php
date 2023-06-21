@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Categoria;
+use App\Models\Descuento;
 use App\Models\Producto;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
@@ -12,8 +13,9 @@ class ProductoController extends Controller
 {
     public function index(){
         $productos = Producto::all();
+        $descuentos = Descuento::all();
         $user = Auth()->user();
-        return view('productos.index')->with('productos', $productos)->with('user', $user);
+        return view('productos.index')->with('productos', $productos)->with('user', $user)->with('descuentos', $descuentos);
     }
 
     public function create(){
@@ -42,9 +44,9 @@ class ProductoController extends Controller
             $producto->categoria = $request->categoria;
             $producto->save();
             $request->file('foto')->storeAs('public/img_productos', $nombrefoto);
-            return redirect()->route('productos.index')->with('status', "producto creado correctamente");
+            return redirect()->route('producto.index')->with('status', "producto creado correctamente");
         } catch (QueryException $e) {
-            return redirect()->route('productos.index')->with('status', "No se ha podido crear el producto");
+            return redirect()->route('producto.index')->with('status', "No se ha podido crear el producto");
         }
 
         
@@ -57,16 +59,17 @@ class ProductoController extends Controller
     }
 
     public function update(Request $request, $id){
-        $request->validate([
-            'nombre' => 'required',
-            'descripcion' => 'required',
-            'foto'=>'image',
-            'precio'=>'required',
-            'talla' => 'required',
-            'categoria'=>'required'
-
-        ]);
+        
         try{
+            $request->validate([
+                'nombre' => 'required',
+                'descripcion' => 'required',
+                'foto'=>'image',
+                'precio'=>'required',
+                'talla' => 'required',
+                'categoria'=>'required'
+    
+            ]);
            $producto = Producto::findOrFail($id);
            $producto->nombre = $request->nombre;
            $producto->descripcion = $request->descripcion;
@@ -79,18 +82,18 @@ class ProductoController extends Controller
             $request->file('foto')->storeAs('public/img_productos', $nombrefoto);
            }
            $producto->save();
-            return redirect()->route('productos.index')->with('status', "Producto modificado correctamente");
+            return redirect()->route('producto.index')->with('status', "Producto modificado correctamente");
         } catch (QueryException $e) {
-            return redirect()->route('productos.index')->with('status', "No se ha podido modificar el producto");
+            return redirect()->route('producto.index')->with('status', "No se ha podido modificar el producto");
         }        
     }
     public function destroy($id){
         try{
             $producto = Producto::find($id);
             $producto->delete();
-            return redirect()->route('productos.index')->with('status', "Producto eliminado correctamente");
+            return redirect()->route('producto.index')->with('status', "Producto eliminado correctamente");
         } catch (QueryException $e) {
-            return redirect()->route('productos.index')->with('status', "No se ha podido eliminado el producto");
+            return redirect()->route('producto.index')->with('status', "No se ha podido eliminado el producto");
         }
     }
 }

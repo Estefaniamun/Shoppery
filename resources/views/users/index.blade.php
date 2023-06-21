@@ -71,17 +71,18 @@
                                         <td
                                             class="px-6 py-4 text-md text-primary_4 whitespace-nowrap dark:text-complement">
 
-                                            <a href="{{ route('user.edit', ['id' => $user->id]) }}">
+                                            <a href="{{ route('user.edit',  $user->id) }}">
                                                 <button type="button"
-                                                    class="text-complement bg-primary  hover:bg-primary focus:ring-4 focus:outline-none font-serif font-medium rounded-lg text-md px-5 py-2.5 text-center mr-2 mb-2">Editar</button>
+                                                    class=" bg-primary  hover:bg-secondary focus:ring-4 focus:outline-none font-serif font-medium rounded-lg text-md px-5 py-2.5 text-center mr-2 mb-2">Editar</button>
                                             </a>
-                                            <form action="{{ route('user.destroy', ['user' => $user->id]) }}"
-                                                method="POST">
-                                                @csrf
-                                                @method('delete')
-                                                <button type="button"
-                                                    class="text-complement bg-primary  hover:bg-primary focus:ring-4 focus:outline-none font-serif font-medium rounded-lg text-md px-5 py-2.5 text-center mr-2 mb-2">Borrar</button>
-                                            </form>
+                                            <a href="{{route('user.destroy',  $user->id) }}}}">
+                                                <form action="{{ route('user.destroy', $user->id) }}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class=" bg-primary  hover:bg-secondary focus:ring-4 focus:outline-none font-serif font-medium rounded-lg text-md px-5 py-2.5 text-center mr-2 mb-2">Eliminar</button>
+                                                </form>
+                                                
+                                            </a>
                                         </td>
                                     </tr>
                                 @endforeach

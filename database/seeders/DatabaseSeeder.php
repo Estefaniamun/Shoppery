@@ -19,8 +19,8 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
 
         DB::table('users')->insert([
-            ['id' => 1, 'nombre' => 'Estefania', 'apellidos' => 'Muñoz Calzado', 'dni' => '12345678L', 'email'=> 'estefania@gmail.com', 'password' => Hash::make('12345678'), 'direccion' => 'C/Ancha Nº 12', 'rol' => 'admin'],
-            ['id' => 2, 'nombre' => 'Jesús', 'apellidos' => 'Morales Cañete', 'dni' => '12378934A', 'email'=> 'jesus@gmail.com', 'password' => Hash::make('12345678'), 'direccion' => 'C/Ancha Nº 22', 'rol' => 'user'],
+            ['id' => 1, 'nombre' => 'Estefania', 'apellidos' => 'Muñoz Calzado', 'dni' => '12345678L', 'email'=> 'estefania@gmail.com', 'password' => bcrypt('12345678'), 'direccion' => 'C/Ancha Nº 12', 'rol' => 'admin'],
+            ['id' => 2, 'nombre' => 'Jesús', 'apellidos' => 'Morales Cañete', 'dni' => '12378934A', 'email'=> 'jesus@gmail.com', 'password' => bcrypt('12345678'), 'direccion' => 'C/Ancha Nº 22', 'rol' => 'user'],
 
         ]);
 
@@ -40,11 +40,11 @@ class DatabaseSeeder extends Seeder
         ]);
 
         DB::table('productos')->insert([
-            ['id' => 1, 'nombre' => 'camiseta', 'descripcion' => 'camiseta de algodón', 'foto' => 'https://www.istockphoto.com/es/foto/camiseta-blanca-en-blanco-gm1158792778-316659573', 'precio' => 10.00, 'talla' => 'S', 'categoria' => 1],
-            ['id' => 2, 'nombre' => 'blusa azul', 'descripcion' => 'Blusa de seda de color azul', 'foto' => 'blusa-seda-azul.jpg', 'precio' => 29.99, 'talla' => 'XS', 'categoria' => 1],
-            ['id' => 3, 'nombre' => 'camiseta naranja', 'descripcion' => 'camiseta de algodón de color naranja', 'foto' => 'camiseta-naranja.jpg', 'precio' => 10.00, 'talla' => 'M', 'categoria' => 1],
-            ['id' => 4, 'nombre' => 'Traje de seda', 'descripcion' => 'Traje de seda', 'foto' => 'traje.jpg', 'precio' => 45.95, 'talla' => 'S', 'categoria' => 3],
-            ['id' => 5, 'nombre' => 'Zapatillas de deporte', 'descripcion' => 'Zapatillas de deporte de color blancas', 'foto' => 'zapatillas.jpg', 'precio' => 29.99, 'talla' => 'S', 'categoria' => 4],
+            ['id' => 1, 'nombre' => 'camiseta', 'descripcion' => 'camiseta de algodón', 'foto' => 'storage/img_productos/1687288377-camiseta-algodon-.jpg', 'precio' => 10.00, 'talla' => 'S', 'categoria' => 1],
+            ['id' => 2, 'nombre' => 'blusa azul', 'descripcion' => 'Blusa de seda de color azul', 'foto' => 'storage/img_productos/1687291808-blusa-seda-azul.jpg', 'precio' => 29.99, 'talla' => 'XS', 'categoria' => 1],
+            ['id' => 3, 'nombre' => 'camiseta naranja', 'descripcion' => 'camiseta de algodón de color naranja', 'foto' => 'storage/img_productos/1687294221-camiseta-naranja.jpg', 'precio' => 10.00, 'talla' => 'M', 'categoria' => 1],
+            ['id' => 4, 'nombre' => 'Traje de seda', 'descripcion' => 'Traje de seda', 'foto' => 'storage/img_productos/1687294330-traje.jpg', 'precio' => 45.95, 'talla' => 'S', 'categoria' => 3],
+            ['id' => 5, 'nombre' => 'Zapatillas de deporte', 'descripcion' => 'Zapatillas de deporte de color blancas', 'foto' => 'storage/img_productos/1687294350-zapatillas.jpg', 'precio' => 29.99, 'talla' => 'S', 'categoria' => 4],
 
         ]);
 
